@@ -29,6 +29,24 @@ require("lazy").setup({
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = {
+    "lua/*.lua",
+    "lua/configs/*.lua",
+    "lua/plugins/*.lua",
+  },
+  callback = function(args)
+  local file = vim.fn.fnamemodify(args.file, ":.")
+  if file:match("lua/plugins/") then
+    vim.cmd("Lazy reload")
+  else
+    vim.cmd("luafile " .. file)
+    vim.notify("Reloaded " .. file, vim.log.levels.INFO)
+  end
+end,
+})
+
+
 require "options"
 require "nvchad.autocmds"
 
