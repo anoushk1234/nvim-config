@@ -82,4 +82,13 @@ return {
     "nvim-treesitter/nvim-treesitter-textobjects",
     lazy = true, -- optional if you're using lazy.nvim
   },
+  {
+    "tanvirtin/vgit.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+    -- Lazy loading on 'VimEnter' event is necessary.
+    event = "VimEnter",
+    config = function()
+      require("vgit").setup()
+    end,
+  },
 }
