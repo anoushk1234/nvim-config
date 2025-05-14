@@ -1,6 +1,8 @@
 require "nvchad.options"
 vim.o.smartindent = true
--- add yours here!
+vim.opt.colorcolumn = "81"
+-- vim.op /t.cursorline = true
 
--- local o = vim.o
--- o.cursorlineopt ='both' -- to enable cursorline!
+-- vim.opt.guicursor = "n-v-c:block"
+vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#665c54" })
+
