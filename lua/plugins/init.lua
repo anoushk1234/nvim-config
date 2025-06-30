@@ -107,67 +107,68 @@ return {
       })
     end,
     dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
-  {
-    "folke/noice.nvim",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
-    config = function()
-      require("noice").setup {
-        lsp = {
-          progress = { enabled = false },
-          message = { enabled = false },
-          signature = { enabled = true },
-          hover = { enabled = true },
-        },
-        messages = {
-          enabled = true,
-          view = "mini", -- minimal popup for messages like :write or :noh
-          view_error = "notify",
-          view_warn = "notify",
-          view_history = "messages",
-          view_search = false,
-        },
-        notify = {
-          enabled = true,
-          view = "notify",
-        },
-        routes = {
-          -- Hide annoying messages
-          {
-            filter = {
-              event = "msg_show",
-              kind = "",
-              find = "written",
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = "msg_show",
-              kind = "search_count",
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = "msg_showmode",
-            },
-            opts = { skip = true },
-          },
-        },
-        presets = {
-          bottom_search = false,
-          command_palette = true,
-          long_message_to_split = true,
-          lsp_doc_border = true,
-        },
-      }
-
-      -- Route vim.notify through nvim-notify
-      vim.notify = require "notify"
-    end,
-  },
+  }
+  -- ,
+  -- {
+  --   "folke/noice.nvim",
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "rcarriga/nvim-notify",
+  --   },
+  --   config = function()
+  --     require("noice").setup {
+  --       lsp = {
+  --         progress = { enabled = false },
+  --         message = { enabled = true },
+  --         signature = { enabled = true },
+  --         hover = { enabled = true },
+  --       },
+  --       messages = {
+  --         enabled = true,
+  --         view = "mini", -- minimal popup for messages like :write or :noh
+  --         view_error = "notify",
+  --         view_warn = "notify",
+  --         view_history = "messages",
+  --         view_search = false,
+  --       },
+  --       notify = {
+  --         enabled = true,
+  --         view = "notify",
+  --       },
+  --       routes = {
+  --         -- Hide annoying messages
+  --         {
+  --           filter = {
+  --             event = "msg_show",
+  --             kind = "",
+  --             find = "written",
+  --           },
+  --           opts = { skip = false },
+  --         },
+  --         {
+  --           filter = {
+  --             event = "msg_show",
+  --             kind = "search_count",
+  --           },
+  --           opts = { skip = false },
+  --         },
+  --         {
+  --           filter = {
+  --             event = "msg_showmode",
+  --           },
+  --           opts = { skip = false },
+  --         },
+  --       },
+  --       presets = {
+  --         bottom_search = false,
+  --         command_palette = true,
+  --         long_message_to_split = true,
+  --         lsp_doc_border = true,
+  --       },
+  --     }
+  --
+  --     -- Route vim.notify through nvim-notify
+  --     vim.notify = require "notify"
+  --   end,
+  -- },
 }

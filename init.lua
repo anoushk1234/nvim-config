@@ -10,7 +10,7 @@ if not vim.uv.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
-
+-- vim.notify("your message here")
 local lazy_config = require "configs.lazy"
 
 -- load plugins
@@ -24,29 +24,45 @@ require("lazy").setup({
 
   { import = "plugins" },
 }, lazy_config)
-
+-- require 'auto-commands'
 -- load theme
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = {
-    "lua/*.lua",
-    "lua/configs/*.lua",
-    "lua/plugins/*.lua",
-  },
-  callback = function(args)
-  local file = vim.fn.fnamemodify(args.file, ":.")
-  if file:match("lua/plugins/") then
-    vim.cmd("Lazy reload")
-  else
-    vim.cmd("luafile " .. file)
-    vim.notify("Reloaded " .. file, vim.log.levels.INFO)
-  end
-end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = {
+--     "lua/*.lua",
+--     "lua/plugins/*.lua",
+--     "lua/configs/*.lua",
+--     "lua/themes/*.lua",
+--   },
+--  callback = function(args)
+--     local path = vim.fn.fnamemodify(args.file, ":.")
+--     -- if path:match("plugins/") then
+--     --   vim.cmd("Lazy sync")
+--     --   vim.notify("Reloaded plugins via Lazy", vim.log.levels.INFO)
+--     -- else
+--       vim.notify("Autocmd triggered for " .. args.file, vim.log.levels.INFO)
+--         vim.api.nvim_cmd("luafile " .. args.file,{})
+--         vim.notify("Reloaded " .. path, vim.log.levels.INFO)
+--     -- end
+--   end,
+-- })
 
+local function reload_on_save(pattern, module)
+  vim.api.nvim_create_autocmd("BufWritePost", {
+    pattern = pattern,
+    callback = function()
+      package.loaded[module] = nil
+      require(module)
+      vim.notify("Reloaded " .. module)
+    end,
+  })
+end
 
+reload_on_save("lua/options.lua", "options")
+reload_on_save("lua/mappings.lua", "mappings")
+reload_on_save("init.lua", "init")
 require "options"
 require "nvchad.autocmds"
 

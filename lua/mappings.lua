@@ -61,3 +61,14 @@ map("n", "<leader>ifl", function()
   -- Move cursor to inside FD_LIKELY(...)
   vim.api.nvim_win_set_cursor(0, { row + 1, 17 })
 end, { desc = "Insert FD_LIKELY if-block" })
+-- map("n", "gi",  "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Go to Implementation" })
+map("n", "gd", vim.lsp.buf.definition, { desc = "Go to Declaration" }) -- fallback
+map({ "n", "i" }, "<leader>flw", function()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local text = 'FD_LOG_WARNING(( "" ));'
+  -- insert the log at current position
+  vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { text })
+  -- place cursor inside the quotes
+  local target_col = col + text:find('""') -- jump to the opening quote
+  vim.api.nvim_win_set_cursor(0, { row, target_col })
+end, { desc = "Insert FD_LOG_WARNING and place cursor" })
