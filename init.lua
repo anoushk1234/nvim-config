@@ -62,7 +62,7 @@ end
 
 reload_on_save("lua/options.lua", "options")
 reload_on_save("lua/mappings.lua", "mappings")
-reload_on_save("init.lua", "init")
+-- reload_on_save("init.lua", "init")
 require "options"
 require "nvchad.autocmds"
 

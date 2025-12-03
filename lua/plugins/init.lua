@@ -8,19 +8,21 @@ return {
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
+    lazy = false,
     config = function()
       require "configs.lspconfig"
     end,
   },
   {
     "voldikss/vim-floaterm",
-    lazy = true,
+    lazy = false,
   },
 
   -- test new blink
   { import = "nvchad.blink.lazyspec" },
   {
     "Saghen/blink.cmp",
+    commit = "9bcb14b43852a6f2bfd5ac9ef29cb5cf09b1b39b",
     opts = {
       keymap = {
         preset = "enter", -- Start with the 'enter' preset
@@ -81,7 +83,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
-    lazy = true, -- optional if you're using lazy.nvim
+    lazy = false, -- optional if you're using lazy.nvim
   },
   {
     "tanvirtin/vgit.nvim",
